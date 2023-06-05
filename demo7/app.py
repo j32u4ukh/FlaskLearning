@@ -44,14 +44,18 @@ class Product(db.Model):
 @app.route('/')
 def index():
     db.create_all()
-    # Add List data
-    p1 = Product('Isacc', 5555, 'https://picsum.photos/id/1048/1200/600', '', '')
-    p2 = Product('Dennis', 9999,'https://picsum.photos/id/1049/1200/600', '', '')
-    p3 = Product('Joey', 7777, 'https://picsum.photos/id/1033/1200/600', '', '')
-    p4 = Product('Fergus', 6666,'https://picsum.photos/id/1041/1200/600', '', '')
-    p6 = Product('Jerry', 4444, 'https://picsum.photos/id/1044/1200/600', '', '')
-    p = [p1, p2, p3, p4, p6]
+    # Read data
+    query = Product.query.filter_by(name='Max').first()
+    print("name:", query.name)
+    print("price:", query.price)
     
-    db.session.add_all(p)
-    db.session.commit()
+    # 可以用動態參數傳入
+    filters = {'name': 'Max', 'price': 8888}
+    query = Product.query.filter_by(**filters).first()
+    print("name:", query.name)
+    print("price:", query.price)
+
+    queries = Product.query.order_by(Product.price.desc())
+    for q in queries:
+        print(q.name, q.price)
     return 'ok'
