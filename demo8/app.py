@@ -1,7 +1,25 @@
-from flask import Flask, make_response, request, Response
+from datetime import timedelta
+import os
+from flask import Flask, make_response, request, Response, session
 import time
  
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
+
+# 设置session
+@app.route('/')
+def index():
+    # 設置session
+    session['username'] = 'name'
+    # 如果設置了 session.permanent 為 True，那麽過期時間是31天
+    session.permanent = True
+    # 讀取 session
+    result = session.get('username')
+    print(f"result: {result}")
+    # 刪除 session
+    session['username'] = False
+    return "ok"
  
 # 1.設定 Cookie
 @app.route("/set")
