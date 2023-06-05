@@ -1,7 +1,7 @@
-from flask import Flask
-from flask import url_for, redirect, render_template, request
+from flask import Flask, url_for, redirect, render_template, request, flash
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
@@ -35,11 +35,19 @@ def b():
 def login():
     #  利用 request 取得使用者端傳來的方法為何
     if request.method == 'POST':
-        # 利用 request 取得表單欄位值
-        return redirect(url_for('hello', username=request.form.get('username')))
+        if login_check(request.form['username'], request.form['password']):
+            flash('Login Success!')
+            return redirect(url_for('hello', username=request.form.get('username')))
 
     #  非POST的時候就會回傳一個空白的模板
     return render_template('login.html')
+
+def login_check(username, password):
+    """登入帳號密碼檢核"""
+    if username == 'admin' and password == 'hello':
+        return True
+    else:
+        return False
 
 @app.route('/hello/<username>')
 def hello(username):
