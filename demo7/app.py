@@ -44,7 +44,14 @@ class Product(db.Model):
 @app.route('/')
 def index():
     db.create_all()
-    product_max = Product('Max', 8888,'https://picsum.photos/id/1047/1200/600', '', '')
-    db.session.add(product_max)
+    # Add List data
+    p1 = Product('Isacc', 5555, 'https://picsum.photos/id/1048/1200/600', '', '')
+    p2 = Product('Dennis', 9999,'https://picsum.photos/id/1049/1200/600', '', '')
+    p3 = Product('Joey', 7777, 'https://picsum.photos/id/1033/1200/600', '', '')
+    p4 = Product('Fergus', 6666,'https://picsum.photos/id/1041/1200/600', '', '')
+    p6 = Product('Jerry', 4444, 'https://picsum.photos/id/1044/1200/600', '', '')
+    p = [p1, p2, p3, p4, p6]
+    
+    db.session.add_all(p)
     db.session.commit()
     return 'ok'
