@@ -33,13 +33,14 @@ def b():
 
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
-    #  利用request取得使用者端傳來的方法為何
+    #  利用 request 取得使用者端傳來的方法為何
     if request.method == 'POST':
-                          #  利用request取得表單欄位值
-        return 'Hello ' + request.values['username']
+        # 利用 request 取得表單欄位值
+        return redirect(url_for('hello', username=request.form.get('username')))
 
-    # return "<form method='post' action='/login'><input type='text' name='username' />" \
-    #         "</br>" \
-    #        "<button type='submit'>Submit</button></form>"
     #  非POST的時候就會回傳一個空白的模板
     return render_template('login.html')
+
+@app.route('/hello/<username>')
+def hello(username):
+    return render_template('hello.html', username=username)
