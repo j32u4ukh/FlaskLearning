@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
- 
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
 
 # windows 下使用三個反斜線(///)，後面再接絕對路徑
