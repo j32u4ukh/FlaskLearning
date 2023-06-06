@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+
+    <!-- 這個元素會設置頁面的視口，讓頁面根據設備的寬度來自動縮放頁面，這樣會讓移動設備擁有更好的瀏覽體驗 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 呈現 flash 內的訊息 -->
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{ message }}</div>
+    {% endfor %}
+
+    <title>{{ user.name }}'s Watchlist</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/mikko.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+    {% endblock %}
+</head>
+<body>
+    <h2>
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/mikko.png') }}">
+        {{ user.name }}'s Watchlist
+    </h2>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <small>&copy; 2023 HelloFlask</small>
+    </footer>
+</body>
+</html>
