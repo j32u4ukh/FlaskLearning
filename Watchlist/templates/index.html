@@ -3,15 +3,20 @@
 <head>
     <meta charset="utf-8">
     <title>{{ name }}'s Watchlist</title>
+    <link rel="icon" class="avatar" href="{{ url_for('static', filename='images/mikko.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
 </head>
 <body>
     <h2>{{ name }}'s Watchlist</h2>
     {# 使用 length 過濾器獲取 movies 變量的長度 #}
     <p>{{ movies|length }} Titles</p>
-    <ul>
+    <ul class="movie-list">
         {% for movie in movies %}  {# 叠代 movies 變量 #}
         <li>{{ movie.title }} - {{ movie.year }}</li>  {# 等同於 movie['title'] #}
         {% endfor %}  {# 使用 endfor 標簽結束 for 語句 #}
     </ul>
+    <footer>
+        <img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}">
+    </footer>
 </body>
 </html>
