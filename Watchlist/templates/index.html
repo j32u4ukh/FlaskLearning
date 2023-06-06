@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ name }}'s Watchlist</title>
+</head>
+<body>
+    <h2>{{ name }}'s Watchlist</h2>
+    {# 使用 length 過濾器獲取 movies 變量的長度 #}
+    <p>{{ movies|length }} Titles</p>
+    <ul>
+        {% for movie in movies %}  {# 叠代 movies 變量 #}
+        <li>{{ movie.title }} - {{ movie.year }}</li>  {# 等同於 movie['title'] #}
+        {% endfor %}  {# 使用 endfor 標簽結束 for 語句 #}
+    </ul>
+</body>
+</html>
