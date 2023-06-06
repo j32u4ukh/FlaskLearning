@@ -4,21 +4,27 @@
 <p>{{ movies|length }} Titles</p>
 <!-- autocomplete 屬性設為 off 來關閉自動完成（按下輸入框不顯示歷史輸入記錄） -->
 <!-- required 標志屬性，如果用戶沒有輸入內容就按下了提交按鈕，瀏覽器會顯示錯誤提示。 -->
+<!-- 在模板中可以直接使用 current_user 變量 -->
+{% if current_user.is_authenticated %}
 <form method="post">
     Name <input type="text" name="title" autocomplete="off" required>
     Year <input type="text" name="year" autocomplete="off" required>
     <input class="btn" type="submit" name="submit" value="Add">
 </form>
+{% endif %}
+
 <ul class="movie-list">
     {% for movie in movies %}  {# 叠代 movies 變量 #}
     {# movie.title 等同於 movie['title'] #}
     <li>
         {{ movie.title }} - {{ movie.year }}
         <span class="float-right">
+            {% if current_user.is_authenticated %}
             <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
             <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.id) }}">
                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
             </form>
+            {% endif %}
             <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
         </span>
     </li>  
