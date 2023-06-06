@@ -64,12 +64,20 @@ class Movie(db.Model):  # 表名將會是 movie
     title = db.Column(db.String(60))  # 電影標題
     year = db.Column(db.String(4))  # 電影年份
 
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user=user)
+
+@app.errorhandler(404)  # 傳入要處理的錯誤代碼
+def page_not_found(e):  # 接受異常對象作為參數
+    return render_template('404.html'), 404  # 返回模板和狀態碼
+
 # flask run --debug --reload --debugger
 @app.route('/')
 def index():
-    user = User.query.first()  # 讀取用戶記錄
     movies = Movie.query.all()  # 讀取所有電影記錄
-    return render_template('index.html', user=user, movies=movies)
+    return render_template('index.html', movies=movies)
 
 @app.route('/user/<name>')
 def user_page(name):
