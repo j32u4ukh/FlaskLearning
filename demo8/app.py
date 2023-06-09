@@ -1,8 +1,9 @@
-from datetime import timedelta
 import os
-from flask import Flask, make_response, request, Response, session
 import time
- 
+from datetime import timedelta
+
+from flask import Flask, Response, make_response, request, session
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
