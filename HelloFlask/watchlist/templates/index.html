@@ -14,7 +14,7 @@
 {% endif %}
 
 <ul class="movie-list">
-    {% for movie in movies %}  {# 叠代 movies 變量 #}
+    {% for movie in movies %}  {# 迭代 movies 變量 #}
     {# movie.title 等同於 movie['title'] #}
     <li>
         {{ movie.title }} - {{ movie.year }}

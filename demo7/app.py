@@ -6,7 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # windows 下使用三個反斜線(///)，後面再接絕對路徑
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///C:/Users/user/Documents/SQLite/test.db"
+path = "C:/Users/user/Documents/SQLite/test.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + path
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "pool_pre_ping": True,
     "pool_recycle": 300,
