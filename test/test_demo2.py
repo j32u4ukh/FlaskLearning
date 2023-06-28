@@ -1,6 +1,6 @@
 import sys
 import unittest
-import sys
+
 sys.path.append("..")
 
 from demo2 import app as app1

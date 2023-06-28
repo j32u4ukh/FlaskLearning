@@ -1,9 +1,8 @@
 import sys
 import unittest
+sys.path.append("..")
 
-sys.path.insert(0, '../demo1') 
-
-from app import app
+from demo1.app import app
 
 
 class Demo1TestCase(unittest.TestCase):
@@ -14,7 +13,14 @@ class Demo1TestCase(unittest.TestCase):
     def test_hello(self):
         response = self.client.get('/')
         data = response.get_data(as_text=True)
-        self.assertIn("Hello, World!", data)
+        self.assertEqual("Hello, World!", data)
+        self.assertEqual(200, response.status_code)
+
+    def test_json(self):
+        response = self.client.get('/json')
+        data = response.get_json()
+        print(f"json data: {data}")
+        self.assertEqual("Hello, World!", data["msg"])
         self.assertEqual(200, response.status_code)
 
 if __name__ == "__main__":

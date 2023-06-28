@@ -20,6 +20,6 @@ def login():
     return jsonify(access_token=access_token)
 
 @app.route('/protected', methods=['GET', 'POST'])
-@jwt_required
+@jwt_required()
 def protected(): 
     return jsonify(msg='ok')

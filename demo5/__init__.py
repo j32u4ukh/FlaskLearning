@@ -12,9 +12,10 @@ def webapi():
 @app.route('/data/message', methods=['GET'])
 def getDataMessage():
     if request.method == "GET":
-        with open('static/data/message.json', 'r') as f:
+        file_path = os.path.join(os.path.dirname(__file__), 'static/data/message.json')
+        with open(file_path, 'r') as f:
             data = json.load(f)
-            print("text : ", data)
+            # print("text : ", data)
         f.close
         return jsonify(data)  # 直接回傳 data 也可以，都是 json 格式
 
@@ -31,8 +32,8 @@ def setDataMessage():
                 'remark': request.form['app_remark']
             }
         }
-        print(type(data))
-        with open('static/data/input.json', 'w') as f:
+        file_path = os.path.join(os.path.dirname(__file__), 'static/data/input.json')
+        with open(file_path, 'w') as f:
             json.dump(data, f)
         f.close
         return jsonify(result='OK')

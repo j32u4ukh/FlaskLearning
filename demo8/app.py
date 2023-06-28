@@ -2,7 +2,7 @@ import os
 import time
 from datetime import timedelta
 
-from flask import Flask, Response, make_response, request, session
+from flask import Flask, Response, make_response, request, session, jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -18,8 +18,8 @@ def index():
     # 讀取 session
     result = session.get('username')
     print(f"result: {result}")
-    # 刪除 session
-    session['username'] = False
+    # # 刪除 session
+    # session['username'] = False
     return "ok"
  
 # 1.設定 Cookie
@@ -32,8 +32,8 @@ def setcookie():
 # 2.取得Cookie
 @app.route("/get")
 def getcookie():
-    framework = request.cookies.get('framework')
-    return f"framework: {framework}"
+    value = request.cookies.get('framework')
+    return jsonify(framework=value)
  
 # 3.刪除Cookie
 @app.route('/del')
